@@ -1,0 +1,272 @@
+{
+	"variables": [],
+	"info": {
+		"name": "FOLIO",
+		"_postman_id": "c1a6dd78-2d38-4abf-983b-b33c74944773",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Setup",
+			"description": "",
+			"item": [
+				{
+					"name": "Tenant",
+					"description": "",
+					"item": [
+						{
+							"name": "Create Tenant",
+							"request": {
+								"url": "http://localhost:9130/_/proxy/tenants",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\" : \"devlib\",\n  \"name\" : \"Development Library\",\n  \"description\" : \"Our Own Development Library\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Modules",
+					"description": "",
+					"item": [
+						{
+							"name": "mod-users",
+							"description": "",
+							"item": [
+								{
+									"name": "Register mod-users",
+									"request": {
+										"url": "http://localhost:9130/_/proxy/modules",
+										"method": "POST",
+										"header": [
+											{
+												"key": "POST /_/proxy/modules HTTP/1.1",
+												"value": "",
+												"description": ""
+											},
+											{
+												"key": "Host",
+												"value": "localhost:9130",
+												"description": ""
+											},
+											{
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"description": ""
+											},
+											{
+												"key": "Postman-Token",
+												"value": "a38496e3-8b53-0bda-39ff-9767a5beaa84",
+												"description": ""
+											},
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+												"description": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"name\": \"users\",\n  \"provides\": [\n    {\n      \"id\": \"users\",\n      \"version\": \"14.0\",\n      \"handlers\" : [\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.collection.get\" ],\n          \"permissionsDesired\": [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/users/{id}\",\n          \"permissionsRequired\" : [ \"users.item.get\" ],\n          \"permissionsDesired\" : [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.delete\" ]\n        },\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/groups\",\n          \"permissionsRequired\": [ \"usergroups.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/groups/{id}*\",\n          \"permissionsRequired\" : [ \"usergroups.item.get\" ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/groups*\",\n          \"permissionsRequired\": [ \"usergroups.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.delete\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.get\" ]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.item.post\" ]\n        },\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.put\" ]\n        },\n        {\n          \"methods\" : [ \"DELETE\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.delete\" ]\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\", \"DELETE\" ],\n          \"pathPattern\" : \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\" : [\n    {\n      \"permissionName\" : \"users.collection.get\",\n      \"displayName\" : \"users collection get\",\n      \"description\" : \"Get a collection of user records\"\n    },\n    {\n      \"permissionName\" : \"users.item.get\",\n      \"displayName\" : \"users item get\",\n      \"description\" : \"Read an individual record in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.read.basic\",\n      \"displayName\" : \"users read-basic\",\n      \"description\" : \"Read non-restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.read.restricted\",\n      \"displayName\" : \"users read-restricted\",\n      \"description\" : \"Read restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.item.post\",\n      \"displayName\" : \"users item post\",\n      \"description\" : \"Create new records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.put\",\n      \"displayName\" : \"users item put\",\n      \"description\" : \"Edit existing records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.delete\",\n      \"displayName\" : \"users item delete\",\n      \"description\" : \"Delete records from the User module\"\n    },\n    {\n      \"permissionName\" : \"usergroups.collection.get\",\n      \"displayName\" : \"usergroups collection get\",\n      \"description\" : \"Get a list of usergroup records\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.get\",\n      \"displayName\" : \"usergroups item get\",\n      \"description\" : \"Get a single usergroup item\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.post\",\n      \"displayName\" : \"usergroups item post\",\n      \"description\" : \"Create new Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.put\",\n      \"displayName\" : \"usergroups item put\",\n      \"description\" : \"Edit existing Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.delete\",\n      \"displayName\" : \"usergroups item delete\",\n      \"description\" : \"Delete Groups for users\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.collection.get\",\n      \"displayName\" : \"addresstypes collection get\",\n      \"description\" : \"Get a list of addresstype records\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.get\",\n      \"displayName\" : \"addresstypes item get\",\n      \"description\" : \"Get a single addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.post\",\n      \"displayName\" : \"addresstypes item post\",\n      \"description\" : \"Create a new addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.put\",\n      \"displayName\" : \"addresstypes item put\",\n      \"description\" : \"Edit an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.delete\",\n      \"displayName\" : \"addresstypes item delete\",\n      \"description\" : \"Delete an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"users.all\",\n      \"displayName\" : \"users all\",\n      \"description\" : \"All permissions for the mod-users module\",\n      \"subPermissions\" : [\n        \"users.collection.get\",\n        \"users.item.get\",\n        \"users.read.basic\",\n        \"users.read.restricted\",\n        \"users.item.post\",\n        \"users.item.put\",\n        \"users.item.delete\",\n        \"usergroups.collection.get\",\n        \"usergroups.item.get\",\n        \"usergroups.item.post\",\n        \"usergroups.item.put\",\n        \"usergroups.item.delete\",\n        \"addresstypes.collection.get\",\n        \"addresstypes.item.get\",\n        \"addresstypes.item.post\",\n        \"addresstypes.item.put\",\n        \"addresstypes.item.delete\"\n      ]\n    }\n  ]\n}\n"
+										},
+										"description": ""
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-users",
+									"request": {
+										"url": "http://localhost:9130/_/discovery/modules",
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"description": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
+										},
+										"description": ""
+									},
+									"response": []
+								},
+								{
+									"name": "Enable for Tenant",
+									"request": {
+										"url": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"description": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"id\" : \"mod-users-14.1.2-SNAPSHOT\"\n}"
+										},
+										"description": ""
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "mod-users-bl",
+							"description": "",
+							"item": [
+								{
+									"name": "Register mod-users-bl",
+									"request": {
+										"url": "http://localhost:9130/_/proxy/modules",
+										"method": "POST",
+										"header": [
+											{
+												"key": "POST /_/proxy/modules HTTP/1.1",
+												"value": "",
+												"description": ""
+											},
+											{
+												"key": "Host",
+												"value": "localhost:9130",
+												"description": ""
+											},
+											{
+												"key": "Cache-Control",
+												"value": "no-cache",
+												"description": ""
+											},
+											{
+												"key": "Postman-Token",
+												"value": "a38496e3-8b53-0bda-39ff-9767a5beaa84",
+												"description": ""
+											},
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+												"description": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"name\": \"users\",\n  \"provides\": [\n    {\n      \"id\": \"users\",\n      \"version\": \"14.0\",\n      \"handlers\" : [\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.collection.get\" ],\n          \"permissionsDesired\": [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/users/{id}\",\n          \"permissionsRequired\" : [ \"users.item.get\" ],\n          \"permissionsDesired\" : [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.delete\" ]\n        },\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/groups\",\n          \"permissionsRequired\": [ \"usergroups.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/groups/{id}*\",\n          \"permissionsRequired\" : [ \"usergroups.item.get\" ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/groups*\",\n          \"permissionsRequired\": [ \"usergroups.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.delete\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.get\" ]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.item.post\" ]\n        },\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.put\" ]\n        },\n        {\n          \"methods\" : [ \"DELETE\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.delete\" ]\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\", \"DELETE\" ],\n          \"pathPattern\" : \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\" : [\n    {\n      \"permissionName\" : \"users.collection.get\",\n      \"displayName\" : \"users collection get\",\n      \"description\" : \"Get a collection of user records\"\n    },\n    {\n      \"permissionName\" : \"users.item.get\",\n      \"displayName\" : \"users item get\",\n      \"description\" : \"Read an individual record in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.read.basic\",\n      \"displayName\" : \"users read-basic\",\n      \"description\" : \"Read non-restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.read.restricted\",\n      \"displayName\" : \"users read-restricted\",\n      \"description\" : \"Read restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.item.post\",\n      \"displayName\" : \"users item post\",\n      \"description\" : \"Create new records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.put\",\n      \"displayName\" : \"users item put\",\n      \"description\" : \"Edit existing records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.delete\",\n      \"displayName\" : \"users item delete\",\n      \"description\" : \"Delete records from the User module\"\n    },\n    {\n      \"permissionName\" : \"usergroups.collection.get\",\n      \"displayName\" : \"usergroups collection get\",\n      \"description\" : \"Get a list of usergroup records\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.get\",\n      \"displayName\" : \"usergroups item get\",\n      \"description\" : \"Get a single usergroup item\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.post\",\n      \"displayName\" : \"usergroups item post\",\n      \"description\" : \"Create new Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.put\",\n      \"displayName\" : \"usergroups item put\",\n      \"description\" : \"Edit existing Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.delete\",\n      \"displayName\" : \"usergroups item delete\",\n      \"description\" : \"Delete Groups for users\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.collection.get\",\n      \"displayName\" : \"addresstypes collection get\",\n      \"description\" : \"Get a list of addresstype records\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.get\",\n      \"displayName\" : \"addresstypes item get\",\n      \"description\" : \"Get a single addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.post\",\n      \"displayName\" : \"addresstypes item post\",\n      \"description\" : \"Create a new addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.put\",\n      \"displayName\" : \"addresstypes item put\",\n      \"description\" : \"Edit an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.delete\",\n      \"displayName\" : \"addresstypes item delete\",\n      \"description\" : \"Delete an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"users.all\",\n      \"displayName\" : \"users all\",\n      \"description\" : \"All permissions for the mod-users module\",\n      \"subPermissions\" : [\n        \"users.collection.get\",\n        \"users.item.get\",\n        \"users.read.basic\",\n        \"users.read.restricted\",\n        \"users.item.post\",\n        \"users.item.put\",\n        \"users.item.delete\",\n        \"usergroups.collection.get\",\n        \"usergroups.item.get\",\n        \"usergroups.item.post\",\n        \"usergroups.item.put\",\n        \"usergroups.item.delete\",\n        \"addresstypes.collection.get\",\n        \"addresstypes.item.get\",\n        \"addresstypes.item.post\",\n        \"addresstypes.item.put\",\n        \"addresstypes.item.delete\"\n      ]\n    }\n  ]\n}\n"
+										},
+										"description": ""
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-users-bl",
+									"request": {
+										"url": "http://localhost:9130/_/discovery/modules",
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"description": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
+										},
+										"description": ""
+									},
+									"response": []
+								},
+								{
+									"name": "Enable for Tenant-bl",
+									"request": {
+										"url": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"description": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"id\" : \"mod-users-14.1.2-SNAPSHOT\"\n}"
+										},
+										"description": ""
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "System-info",
+			"description": "",
+			"item": [
+				{
+					"name": "List Modules",
+					"request": {
+						"url": "http://localhost:9130/_/proxy/modules",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Tenants",
+					"request": {
+						"url": "http://localhost:9130/_/proxy/tenants",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Destroy",
+			"description": "",
+			"item": [
+				{
+					"name": "Modules",
+					"description": "",
+					"item": [
+						{
+							"name": "mod-users",
+							"description": "",
+							"item": [],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
