@@ -1,10 +1,8 @@
 {
-	"variables": [],
 	"info": {
-		"name": "FOLIO",
 		"_postman_id": "c1a6dd78-2d38-4abf-983b-b33c74944773",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"name": "FOLIO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -18,20 +16,30 @@
 						{
 							"name": "Create Tenant",
 							"request": {
-								"url": "http://localhost:9130/_/proxy/tenants",
 								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
-										"value": "application/json",
-										"description": ""
+										"value": "application/json"
 									}
 								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n  \"id\" : \"devlib\",\n  \"name\" : \"Development Library\",\n  \"description\" : \"Our Own Development Library\"\n}"
 								},
-								"description": ""
+								"url": {
+									"raw": "http://localhost:9130/_/proxy/tenants",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9130",
+									"path": [
+										"_",
+										"proxy",
+										"tenants"
+									]
+								}
 							},
 							"response": []
 						}
@@ -48,81 +56,558 @@
 							"item": [
 								{
 									"name": "Register mod-users",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a566f6d6-fcfd-4bad-b10f-afea9b85e959",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
 									"request": {
-										"url": "http://localhost:9130/_/proxy/modules",
 										"method": "POST",
 										"header": [
 											{
-												"key": "POST /_/proxy/modules HTTP/1.1",
-												"value": "",
-												"description": ""
-											},
-											{
-												"key": "Host",
-												"value": "localhost:9130",
-												"description": ""
-											},
-											{
-												"key": "Cache-Control",
-												"value": "no-cache",
-												"description": ""
-											},
-											{
-												"key": "Postman-Token",
-												"value": "a38496e3-8b53-0bda-39ff-9767a5beaa84",
-												"description": ""
-											},
-											{
 												"key": "Content-Type",
-												"value": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-												"description": ""
+												"value": "application/json"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"id\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"name\": \"users\",\n  \"provides\": [\n    {\n      \"id\": \"users\",\n      \"version\": \"14.0\",\n      \"handlers\" : [\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.collection.get\" ],\n          \"permissionsDesired\": [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/users/{id}\",\n          \"permissionsRequired\" : [ \"users.item.get\" ],\n          \"permissionsDesired\" : [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.delete\" ]\n        },\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/groups\",\n          \"permissionsRequired\": [ \"usergroups.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/groups/{id}*\",\n          \"permissionsRequired\" : [ \"usergroups.item.get\" ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/groups*\",\n          \"permissionsRequired\": [ \"usergroups.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.delete\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.get\" ]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.item.post\" ]\n        },\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.put\" ]\n        },\n        {\n          \"methods\" : [ \"DELETE\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.delete\" ]\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\", \"DELETE\" ],\n          \"pathPattern\" : \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\" : [\n    {\n      \"permissionName\" : \"users.collection.get\",\n      \"displayName\" : \"users collection get\",\n      \"description\" : \"Get a collection of user records\"\n    },\n    {\n      \"permissionName\" : \"users.item.get\",\n      \"displayName\" : \"users item get\",\n      \"description\" : \"Read an individual record in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.read.basic\",\n      \"displayName\" : \"users read-basic\",\n      \"description\" : \"Read non-restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.read.restricted\",\n      \"displayName\" : \"users read-restricted\",\n      \"description\" : \"Read restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.item.post\",\n      \"displayName\" : \"users item post\",\n      \"description\" : \"Create new records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.put\",\n      \"displayName\" : \"users item put\",\n      \"description\" : \"Edit existing records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.delete\",\n      \"displayName\" : \"users item delete\",\n      \"description\" : \"Delete records from the User module\"\n    },\n    {\n      \"permissionName\" : \"usergroups.collection.get\",\n      \"displayName\" : \"usergroups collection get\",\n      \"description\" : \"Get a list of usergroup records\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.get\",\n      \"displayName\" : \"usergroups item get\",\n      \"description\" : \"Get a single usergroup item\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.post\",\n      \"displayName\" : \"usergroups item post\",\n      \"description\" : \"Create new Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.put\",\n      \"displayName\" : \"usergroups item put\",\n      \"description\" : \"Edit existing Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.delete\",\n      \"displayName\" : \"usergroups item delete\",\n      \"description\" : \"Delete Groups for users\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.collection.get\",\n      \"displayName\" : \"addresstypes collection get\",\n      \"description\" : \"Get a list of addresstype records\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.get\",\n      \"displayName\" : \"addresstypes item get\",\n      \"description\" : \"Get a single addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.post\",\n      \"displayName\" : \"addresstypes item post\",\n      \"description\" : \"Create a new addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.put\",\n      \"displayName\" : \"addresstypes item put\",\n      \"description\" : \"Edit an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.delete\",\n      \"displayName\" : \"addresstypes item delete\",\n      \"description\" : \"Delete an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"users.all\",\n      \"displayName\" : \"users all\",\n      \"description\" : \"All permissions for the mod-users module\",\n      \"subPermissions\" : [\n        \"users.collection.get\",\n        \"users.item.get\",\n        \"users.read.basic\",\n        \"users.read.restricted\",\n        \"users.item.post\",\n        \"users.item.put\",\n        \"users.item.delete\",\n        \"usergroups.collection.get\",\n        \"usergroups.item.get\",\n        \"usergroups.item.post\",\n        \"usergroups.item.put\",\n        \"usergroups.item.delete\",\n        \"addresstypes.collection.get\",\n        \"addresstypes.item.get\",\n        \"addresstypes.item.post\",\n        \"addresstypes.item.put\",\n        \"addresstypes.item.delete\"\n      ]\n    }\n  ]\n}\n"
+											"raw": "{\n  \"id\": \"mod-users-15.0.0-SNAPSHOT\",\n  \"name\": \"users\",\n  \"provides\": [\n    {\n      \"id\": \"users\",\n      \"version\": \"15.0\",\n      \"handlers\" : [\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.collection.get\" ],\n          \"permissionsDesired\": [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/users/{id}\",\n          \"permissionsRequired\" : [ \"users.item.get\" ],\n          \"permissionsDesired\" : [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.delete\" ]\n        },\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/groups\",\n          \"permissionsRequired\": [ \"usergroups.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/groups/{id}*\",\n          \"permissionsRequired\" : [ \"usergroups.item.get\" ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/groups*\",\n          \"permissionsRequired\": [ \"usergroups.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.delete\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.get\" ]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.item.post\" ]\n        },\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.put\" ]\n        },\n        {\n          \"methods\" : [ \"DELETE\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.delete\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/proxiesfor\",\n          \"permissionsRequired\" : [ \"proxiesfor.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/proxiesfor/{id}\",\n          \"permissionsRequired\" : [ \"proxiesfor.item.get\" ]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/proxiesfor\",\n          \"permissionsRequired\" : [ \"proxiesfor.item.post\" ]\n        },\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\" : \"/proxiesfor/{id}\",\n          \"permissionsRequired\" : [ \"proxiesfor.item.put\" ]\n        },\n        {\n          \"methods\" : [ \"DELETE\" ],\n          \"pathPattern\" : \"/proxiesfor/{id}\",\n          \"permissionsRequired\" : [ \"proxiesfor.item.delete\" ]\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\", \"DELETE\" ],\n          \"pathPattern\" : \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\" : [\n    {\n      \"permissionName\" : \"users.collection.get\",\n      \"displayName\" : \"users collection get\",\n      \"description\" : \"Get a collection of user records\"\n    },\n    {\n      \"permissionName\" : \"users.item.get\",\n      \"displayName\" : \"users item get\",\n      \"description\" : \"Read an individual record in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.read.basic\",\n      \"displayName\" : \"users read-basic\",\n      \"description\" : \"Read non-restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.read.restricted\",\n      \"displayName\" : \"users read-restricted\",\n      \"description\" : \"Read restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.item.post\",\n      \"displayName\" : \"users item post\",\n      \"description\" : \"Create new records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.put\",\n      \"displayName\" : \"users item put\",\n      \"description\" : \"Edit existing records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.delete\",\n      \"displayName\" : \"users item delete\",\n      \"description\" : \"Delete records from the User module\"\n    },\n    {\n      \"permissionName\" : \"usergroups.collection.get\",\n      \"displayName\" : \"usergroups collection get\",\n      \"description\" : \"Get a list of usergroup records\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.get\",\n      \"displayName\" : \"usergroups item get\",\n      \"description\" : \"Get a single usergroup item\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.post\",\n      \"displayName\" : \"usergroups item post\",\n      \"description\" : \"Create new Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.put\",\n      \"displayName\" : \"usergroups item put\",\n      \"description\" : \"Edit existing Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.delete\",\n      \"displayName\" : \"usergroups item delete\",\n      \"description\" : \"Delete Groups for users\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.collection.get\",\n      \"displayName\" : \"addresstypes collection get\",\n      \"description\" : \"Get a list of addresstype records\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.get\",\n      \"displayName\" : \"addresstypes item get\",\n      \"description\" : \"Get a single addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.post\",\n      \"displayName\" : \"addresstypes item post\",\n      \"description\" : \"Create a new addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.put\",\n      \"displayName\" : \"addresstypes item put\",\n      \"description\" : \"Edit an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.delete\",\n      \"displayName\" : \"addresstypes item delete\",\n      \"description\" : \"Delete an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"proxiesfor.collection.get\",\n      \"displayName\" : \"proxiesfor collection get\",\n      \"description\" : \"Get a list of proxyfor records\"\n    },\n    {\n      \"permissionName\" : \"proxiesfor.item.get\",\n      \"displayName\" : \"proxiesfor item get\",\n      \"description\" : \"Get a single proxyfor record\"\n    },\n    {\n      \"permissionName\" : \"proxiesfor.item.post\",\n      \"displayName\" : \"proxiesfor item post\",\n      \"description\" : \"Create a new proxyfor record\"\n    },\n    {\n      \"permissionName\" : \"proxiesfor.item.put\",\n      \"displayName\" : \"proxiesfor item put\",\n      \"description\" : \"Edit a proxyfor record\"\n    },\n    {\n      \"permissionName\" : \"proxiesfor.item.delete\",\n      \"displayName\" : \"proxiesfor.item.delete\",\n      \"description\" : \"Delete a proxyfor record\"\n    },\n    {\n      \"permissionName\" : \"users.all\",\n      \"displayName\" : \"users all\",\n      \"description\" : \"All permissions for the mod-users module\",\n      \"subPermissions\" : [\n        \"users.collection.get\",\n        \"users.item.get\",\n        \"users.read.basic\",\n        \"users.read.restricted\",\n        \"users.item.post\",\n        \"users.item.put\",\n        \"users.item.delete\",\n        \"usergroups.collection.get\",\n        \"usergroups.item.get\",\n        \"usergroups.item.post\",\n        \"usergroups.item.put\",\n        \"usergroups.item.delete\",\n        \"addresstypes.collection.get\",\n        \"addresstypes.item.get\",\n        \"addresstypes.item.post\",\n        \"addresstypes.item.put\",\n        \"addresstypes.item.delete\",\n        \"proxiesfor.collection.get\",\n        \"proxiesfor.item.get\",\n        \"proxiesfor.item.post\",\n        \"proxiesfor.item.put\",\n        \"proxiesfor.item.delete\"\n      ]\n    }\n  ],\n  \"launchDescriptor\": {\n    \"dockerImage\": \"mod-users:15.0.0-SNAPSHOT\",\n    \"dockerArgs\": {\n      \"HostConfig\": { \"PortBindings\": { \"8081/tcp\":  [{ \"HostPort\": \"%p\" }] } }\n    },\n    \"dockerPull\" : false\n  }\n}\n"
 										},
-										"description": ""
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "Deploy mod-users",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "70d58a33-f15d-4033-aa0b-e95b6918ea86",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
 									"request": {
-										"url": "http://localhost:9130/_/discovery/modules",
 										"method": "POST",
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"description": ""
+												"value": "application/json"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"srvcId\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
+											"raw": "{\n  \"srvcId\": \"mod-users-15.0.0-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
 										},
-										"description": ""
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Enable for Tenant",
+									"name": "Enable mod-users for Tenant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fc9c68c4-5583-43d8-83fe-e8a0753c7e9f",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
 									"request": {
-										"url": "http://localhost:9130/_/proxy/tenants/devlib/modules",
 										"method": "POST",
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"description": ""
+												"value": "application/json"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"id\" : \"mod-users-14.1.2-SNAPSHOT\"\n}"
+											"raw": "{\n  \"id\" : \"mod-users-15.0.0-SNAPSHOT\"\n}"
 										},
-										"description": ""
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "mod-authtoken",
+							"description": "",
+							"item": [
+								{
+									"name": "Register mod-authtoken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1dbd1e56-8623-44c7-8d46-ddfc2b2d0281",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-authtoken-1.4.1-SNAPSHOT\",\n  \"name\": \"authtoken\",\n  \"provides\": [\n    {\n      \"id\": \"authtoken\",\n      \"version\": \"1.2\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/token\"\n        }\n      ]\n    }\n  ],\n  \"filters\" : [\n    {\n      \"methods\" : [ \"*\" ],\n      \"pathPattern\" : \"/*\",\n      \"phase\" : \"auth\",\n      \"type\" : \"headers\",\n      \"modulePermissions\" : [ \"perms.users.get\" ]\n    }\n  ],\n  \"launchDescriptor\": {\n    \"dockerImage\": \"mod-authtoken:1.4.1-SNAPSHOT\",\n    \"dockerArgs\": {\n      \"HostConfig\": { \"PortBindings\": { \"8081/tcp\":  [{ \"HostPort\": \"%p\" }] } }\n    },\n    \"dockerPull\" : false\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-authtoken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "de420384-921a-4796-acdf-80f27968038b",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\": \"mod-authtoken-1.4.1-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -jar ../mod-authtoken/target/mod-authtoken-fat.jar -Dport=%p\"\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enable mod-authtoken for Tenant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fef74ae1-e07b-4b30-a40d-3ab2f3fbe2a1",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\" : \"mod-authtoken-1.4.1-SNAPSHOT\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "mod-permissions",
+							"description": "",
+							"item": [
+								{
+									"name": "Register mod-permissions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "855b1754-9850-4cf3-8f65-cd91f78ba796",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-permissions-5.2.4-SNAPSHOT\",\n  \"name\": \"permissions\",\n  \"provides\": [\n    {\n      \"id\": \"permissions\",\n      \"version\": \"5.1\",\n      \"handlers\" : [\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/perms/users*\",\n          \"permissionsRequired\": [ \"perms.users.item.post\" ]\n        },\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/perms/users*\",\n          \"permissionsDesired\": [ \"perms.users.get\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/perms/users/{id}\",\n          \"permissionsRequired\": [ \"perms.users.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/perms/users/{id}\",\n          \"permissionsRequired\": [ \"perms.users.item.delete\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/perms/users/{id}/permissions/{perm}\",\n          \"permissionsRequired\": [ \"perms.users.item.delete\" ]\n        },\n\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/perms/permissions\",\n          \"permissionsRequired\": [ \"perms.permissions.get\" ]\n        },\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/perms/permissions/{id}\",\n          \"permissionsRequired\": [ \"perms.permissions.get\" ]\n        },\n\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\": \"/perms/permissions/{id}\",\n          \"permissionsRequired\" : [ \"perms.permissions.item.put\" ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/perms/permissions\",\n          \"permissionsRequired\": [ \"perms.permissions.item.post\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/perms/permissions/{id}\",\n          \"permissionsRequired\": [ \"perms.permissions.item.delete \" ]\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\", \"DELETE\" ],\n          \"pathPattern\" : \"/_/tenant\"\n        }\n      ]\n    },\n    {\n      \"id\" : \"_tenantPermissions\",\n      \"version\" : \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/_/tenantpermissions\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\" : [\n    {\n      \"permissionName\" : \"perms.users.get\",\n      \"displayName\" : \"permission users read\",\n      \"description\" : \"Read or list permissions user(s)\"\n    },\n    {\n      \"permissionName\" : \"perms.users.item.post\",\n      \"displayName\" : \"permission users item create\",\n      \"description\" : \"Add a new permissions user\"\n    },\n    {\n      \"permissionName\" : \"perms.users.item.put\",\n      \"displayName\" : \"permission users item modify\",\n      \"description\" : \"Modify a permissions user\"\n    },\n    {\n      \"permissionName\" : \"perms.users.item.delete\",\n      \"displayName\" : \"permission users item delete\",\n      \"description\" : \"Remove a permissions user or remove permissions from a user\"\n    },\n    {\n      \"permissionName\" : \"perms.permissions.get\",\n      \"displayName\" : \"permission read\",\n      \"description\" : \"Read or list permissions\"\n    },\n    {\n      \"permissionName\" : \"perms.permissions.item.post\",\n      \"displayName\" : \"permission item create\",\n      \"description\" : \"Add a new permission\"\n    },\n    {\n      \"permissionName\" : \"perms.permissions.item.put\",\n      \"displayName\" : \"permission item modify\",\n      \"description\" : \"Modify a permission\"\n    },\n    {\n      \"permissionName\" : \"perms.permissions.item.delete\",\n      \"displayName\" : \"permission item delete\",\n      \"description\" : \"Remove a permission\"\n    },\n    {\n      \"permissionName\" : \"perms.permissions\",\n      \"displayName\" : \"permissions\",\n      \"description\" : \"All permissions for permission objects\",\n      \"subPermissions\" : [\n          \"perms.permissions.get\",\n          \"perms.permissions.item.post\",\n          \"perms.permissions.item.put\",\n          \"perms.permissions.item.delete\"\n      ]\n    },\n    {\n      \"permissionName\" : \"perms.users\",\n      \"displayName\" : \"permission users\",\n      \"description\" : \"All permissions for permission user objects\",\n      \"subPermissions\" : [\n        \"perms.users.get\",\n        \"perms.users.item.post\",\n        \"perms.users.item.put\",\n        \"perms.users.item.delete\"\n      ]\n    },\n    {\n      \"permissionName\" : \"perms.all\",\n      \"displayName\" : \"perms all\",\n      \"description\" : \"All permissions for the permissions module\",\n      \"subPermissions\" : [\n        \"perms.users\",\n        \"perms.permissions\"\n      ]\n    }\n\n  ],\n  \"launchDescriptor\": {\n    \"dockerImage\": \"mod-permissions:5.2.4-SNAPSHOT\",\n    \"dockerArgs\": {\n      \"HostConfig\": { \"PortBindings\": { \"8081/tcp\":  [{ \"HostPort\": \"%p\" }] } } \n    },\n    \"dockerPull\" : false\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-permissions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "48500101-ae8c-40aa-90fb-aee0efbda068",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\": \"mod-permissions-5.2.4-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -Dport=%p -jar ../mod-permissions/target/mod-permissions-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enable mod-permissions for Tenant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a628111c-c0f4-490a-afea-b8f08b4550e6",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\" : \"mod-permissions-5.2.4-SNAPSHOT\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "mod-login",
+							"description": "",
+							"item": [
+								{
+									"name": "Register mod-login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7de33bd9-e6a5-4a01-bf67-cc34241d47c4",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-login-4.0.1-SNAPSHOT\",\n  \"name\": \"login\",\n  \"provides\": [\n    {\n      \"id\": \"login\",\n      \"version\": \"4.0\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/authn/login\",\n          \"modulePermissions\" : [ \"auth.signtoken\", \"users.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/authn/credentials\",\n          \"permissionsRequired\" : [ \"login.collection.get\", \"users.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/authn/credentials/{id}\",\n          \"permissionsRequired\" : [ \"login.item.get\" ]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/authn/credentials\",\n          \"permissionsRequired\" : [ \"login.item.post\" ]\n        },\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\" : \"/authn/credentials/{id}\",\n          \"permissionsRequired\" : [ \"login.item.put\" ]\n        },\n        {\n          \"methods\" : [ \"DELETE\" ],\n          \"pathPattern\" : \"/authn/credentials/{id}\",\n          \"permissionsRequired\" : [ \"login.item.delete\" ]\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\" : [\n    {\n      \"permissionName\" : \"login.collection.get\",\n      \"displayName\" : \"login collection get\",\n      \"description\" : \"Get a list of logins\"\n    },\n    {\n      \"permissionName\" : \"login.item.get\",\n      \"displayName\" : \"login item get\",\n      \"description\" : \"Read a single login\"\n    },\n    {\n      \"permissionName\" : \"login.item.post\",\n      \"displayName\" : \"login item post\",\n      \"description\" : \"Add New Login\"\n    },\n    {\n      \"permissionName\" : \"login.item.put\",\n      \"displayName\" : \"login item put\",\n      \"description\" : \"Modify login info\"\n    },\n    {\n      \"permissionName\" : \"login.item.delete\",\n      \"displayName\" : \"login item delete\",\n      \"description\" : \"Remove existing login credentials\"\n    },\n    {\n      \"permissionName\" : \"login.all\",\n      \"displayName\" : \"login credentials\",\n      \"description\" : \"All permissions for login credentials\",\n      \"subPermissions\" : [\n        \"login.item.get\",\n        \"login.collection.get\",\n        \"login.item.post\",\n        \"login.item.put\",\n        \"login.item.delete\"\n      ]\n    }\n  ],\n  \"launchDescriptor\": {\n    \"dockerImage\": \"mod-login:4.0.1-SNAPSHOT\",\n    \"dockerArgs\": {\n      \"HostConfig\": { \"PortBindings\": { \"8081/tcp\":  [{ \"HostPort\": \"%p\" }] } } \n    },\n    \"dockerCMD\": [ \"verify.user=true\" ],\n    \"dockerPull\": false\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6a2b1aa6-ee6c-4a4b-b175-fe9a4686f0fc",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\": \"mod-login-4.0.1-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -Dport=%p -jar ../mod-login/target/mod-login-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enable mod-login for Tenant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5ebbdc49-9426-49c8-b9d8-2799e046c66c",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\" : \"mod-login-4.0.1-SNAPSHOT\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
 									},
 									"response": []
 								}
@@ -135,81 +620,604 @@
 							"item": [
 								{
 									"name": "Register mod-users-bl",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0a95e2b5-82c1-4037-a45a-180bf9d8075e",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
 									"request": {
-										"url": "http://localhost:9130/_/proxy/modules",
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-users-bl-3.0.0-SNAPSHOT\",\n  \"name\": \"users business logic\",\n  \"provides\": [\n    {\n      \"id\": \"users-bl\",\n      \"version\": \"3.0\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/bl-users\",\n          \"permissionsRequired\": [\"users-bl.collection.get\"],\n          \"modulePermissions\": [\"users.collection.get\"]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/bl-users/_self\",\n          \"permissionsRequired\" : [],\n          \"modulePermissions\": [\"users.item.get\", \"users.collection.get\",\n            \"perms.users.get\",\n            \"usergroups.item.get\"]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/bl-users/login\",\n          \"permissionsRequired\" : [],\n          \"modulePermissions\" : [ \"users.item.get\", \"users.collection.get\",\n            \"perms.users.item.get\", \"perms.users.get\", \"usergroups.item.get\" ]\n        },\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/bl-users/by-username/{id}\",\n          \"permissionsRequired\": [\"users-bl.item.get\", \"perms.users.get\"],\n          \"modulePermissions\": [\"users.item.get\", \"users.collection.get\",\n            \"perms.users.get\",\n            \"login.item.get\"]\n        },\n         {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/bl-users/by-id/{id}\",\n          \"permissionsRequired\": [\"users-bl.item.get\", \"perms.users.get\"],\n          \"modulePermissions\": [\"users.item.get\", \"users.collection.get\",\n            \"perms.users.get\", \"login.item.get\"]\n        },\n        {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/bl-users\",\n          \"permissionsRequired\": [\"users-bl.item.post\"],\n          \"permissionsDesired\": [\"perms.users.item.post\" ],\n          \"modulePermissions\": [\"users.item.post\",\n            \"perms.users.item.post\",\n            \"login.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/bl-users/{id}\",\n          \"permissionsDesired\": [\"perms.users.item.put\" ],\n          \"permissionsRequired\": [\"users-bl.item.put\"],\n          \"modulePermissions\": [\"users.edit\", \"users.item.put\",\n            \"perms.users.item.put\",\n            \"login.item.put\"]\n        }\n      ]\n    }\n  ],\n  \"requires\" : [\n    {\n      \"id\" : \"users\",\n      \"version\" : \"14.3 15.0\"\n    },\n    {\n      \"id\" : \"permissions\",\n      \"version\" : \"5.0\"\n    },\n    {\n      \"id\" : \"login\",\n      \"version\" : \"4.0\"\n    }\n  ],\n  \"permissionSets\": [\n    {\n      \"permissionName\": \"users-bl.collection.get\",\n      \"displayName\" : \"users-bl collection get\",\n      \"description\" : \"Get a list of composite user records\"\n    },\n    {\n      \"permissionName\" : \"users-bl.item.get\",\n      \"displayName\" : \"users-bl item get\",\n      \"description\" : \"Get a single composite user record by id\"\n    },\n    {\n      \"permissionName\" : \"users-bl.item.post\",\n      \"displayName\" : \"users-bl item post\",\n      \"description\" : \"Create a new composite user record\"\n    },\n    {\n      \"permissionName\" : \"users-bl.item.put\",\n      \"displayName\" : \"users-bl item put\",\n      \"description\" : \"Modify a composite user record\"\n    },\n    {\n      \"permissionName\" : \"users-bl.all\",\n      \"displayName\" : \"users-bl all\",\n      \"description\" : \"All user business-logic permissions\",\n      \"subPermissions\" : [\n        \"users-bl.collection.get\",\n        \"users-bl.item.get\",\n        \"users-bl.item.post\",\n        \"users-bl.item.put\"\n      ],\n      \"visible\" : false\n    }\n  ],\n  \"launchDescriptor\": {\n    \"dockerImage\": \"mod-users-bl:3.0.0-SNAPSHOT\",\n    \"dockerArgs\": {\n      \"HostConfig\": { \"PortBindings\": { \"8081/tcp\":  [{ \"HostPort\": \"%p\" }] } }\n    },\n    \"dockerPull\" : false\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-users-bl",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2c22905c-04f0-4b6d-8768-f8cfcf7e804b",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\": \"mod-users-bl-3.0.0-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -jar -Dlog.level=debug -Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.SLF4JLogDelegateFactory -Dport=%p -jar ../mod-users-bl/target/mod-users-bl-fat.jar\"\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enable mod-users-bl for Tenant-bl",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c3742a50-77d8-4bc2-8fe9-d288e782e41c",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\" : \"mod-users-14.1.2-SNAPSHOT\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Register mod-users-bl",
+									"request": {
 										"method": "POST",
 										"header": [
 											{
 												"key": "POST /_/proxy/modules HTTP/1.1",
-												"value": "",
-												"description": ""
+												"value": ""
 											},
 											{
 												"key": "Host",
-												"value": "localhost:9130",
-												"description": ""
+												"value": "localhost:9130"
 											},
 											{
 												"key": "Cache-Control",
-												"value": "no-cache",
-												"description": ""
+												"value": "no-cache"
 											},
 											{
 												"key": "Postman-Token",
-												"value": "a38496e3-8b53-0bda-39ff-9767a5beaa84",
-												"description": ""
+												"value": "a38496e3-8b53-0bda-39ff-9767a5beaa84"
 											},
 											{
 												"key": "Content-Type",
-												"value": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-												"description": ""
+												"value": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
 											}
 										],
 										"body": {
 											"mode": "raw",
 											"raw": "{\n  \"id\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"name\": \"users\",\n  \"provides\": [\n    {\n      \"id\": \"users\",\n      \"version\": \"14.0\",\n      \"handlers\" : [\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.collection.get\" ],\n          \"permissionsDesired\": [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/users/{id}\",\n          \"permissionsRequired\" : [ \"users.item.get\" ],\n          \"permissionsDesired\" : [\n            \"users.read.basic\",\n            \"users.read.restricted\"\n          ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/users\",\n          \"permissionsRequired\": [ \"users.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/users/{id}\",\n          \"permissionsRequired\": [ \"users.item.delete\" ]\n        },\n        {\n          \"methods\": [ \"GET\" ],\n          \"pathPattern\": \"/groups\",\n          \"permissionsRequired\": [ \"usergroups.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/groups/{id}*\",\n          \"permissionsRequired\" : [ \"usergroups.item.get\" ]\n        },\n        {\n          \"methods\": [ \"POST\" ],\n          \"pathPattern\": \"/groups*\",\n          \"permissionsRequired\": [ \"usergroups.item.post\" ]\n        },\n        {\n          \"methods\": [ \"PUT\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.put\" ]\n        },\n        {\n          \"methods\": [ \"DELETE\" ],\n          \"pathPattern\": \"/groups/{id}*\",\n          \"permissionsRequired\": [ \"usergroups.item.delete\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.collection.get\" ]\n        },\n        {\n          \"methods\" : [ \"GET\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.get\" ]\n        },\n        {\n          \"methods\" : [ \"POST\" ],\n          \"pathPattern\" : \"/addresstypes\",\n          \"permissionsRequired\" : [ \"addresstypes.item.post\" ]\n        },\n        {\n          \"methods\" : [ \"PUT\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.put\" ]\n        },\n        {\n          \"methods\" : [ \"DELETE\" ],\n          \"pathPattern\" : \"/addresstypes/{id}\",\n          \"permissionsRequired\" : [ \"addresstypes.item.delete\" ]\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\" : \"system\",\n      \"handlers\" : [\n        {\n          \"methods\" : [ \"POST\", \"DELETE\" ],\n          \"pathPattern\" : \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\" : [\n    {\n      \"permissionName\" : \"users.collection.get\",\n      \"displayName\" : \"users collection get\",\n      \"description\" : \"Get a collection of user records\"\n    },\n    {\n      \"permissionName\" : \"users.item.get\",\n      \"displayName\" : \"users item get\",\n      \"description\" : \"Read an individual record in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.read.basic\",\n      \"displayName\" : \"users read-basic\",\n      \"description\" : \"Read non-restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.read.restricted\",\n      \"displayName\" : \"users read-restricted\",\n      \"description\" : \"Read restricted User data information\"\n    },\n    {\n      \"permissionName\" : \"users.item.post\",\n      \"displayName\" : \"users item post\",\n      \"description\" : \"Create new records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.put\",\n      \"displayName\" : \"users item put\",\n      \"description\" : \"Edit existing records in the User module\"\n    },\n    {\n      \"permissionName\" : \"users.item.delete\",\n      \"displayName\" : \"users item delete\",\n      \"description\" : \"Delete records from the User module\"\n    },\n    {\n      \"permissionName\" : \"usergroups.collection.get\",\n      \"displayName\" : \"usergroups collection get\",\n      \"description\" : \"Get a list of usergroup records\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.get\",\n      \"displayName\" : \"usergroups item get\",\n      \"description\" : \"Get a single usergroup item\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.post\",\n      \"displayName\" : \"usergroups item post\",\n      \"description\" : \"Create new Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.put\",\n      \"displayName\" : \"usergroups item put\",\n      \"description\" : \"Edit existing Groups for users\"\n    },\n    {\n      \"permissionName\" : \"usergroups.item.delete\",\n      \"displayName\" : \"usergroups item delete\",\n      \"description\" : \"Delete Groups for users\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.collection.get\",\n      \"displayName\" : \"addresstypes collection get\",\n      \"description\" : \"Get a list of addresstype records\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.get\",\n      \"displayName\" : \"addresstypes item get\",\n      \"description\" : \"Get a single addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.post\",\n      \"displayName\" : \"addresstypes item post\",\n      \"description\" : \"Create a new addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.put\",\n      \"displayName\" : \"addresstypes item put\",\n      \"description\" : \"Edit an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"addresstypes.item.delete\",\n      \"displayName\" : \"addresstypes item delete\",\n      \"description\" : \"Delete an addresstype record\"\n    },\n    {\n      \"permissionName\" : \"users.all\",\n      \"displayName\" : \"users all\",\n      \"description\" : \"All permissions for the mod-users module\",\n      \"subPermissions\" : [\n        \"users.collection.get\",\n        \"users.item.get\",\n        \"users.read.basic\",\n        \"users.read.restricted\",\n        \"users.item.post\",\n        \"users.item.put\",\n        \"users.item.delete\",\n        \"usergroups.collection.get\",\n        \"usergroups.item.get\",\n        \"usergroups.item.post\",\n        \"usergroups.item.put\",\n        \"usergroups.item.delete\",\n        \"addresstypes.collection.get\",\n        \"addresstypes.item.get\",\n        \"addresstypes.item.post\",\n        \"addresstypes.item.put\",\n        \"addresstypes.item.delete\"\n      ]\n    }\n  ]\n}\n"
 										},
-										"description": ""
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
 									},
 									"response": []
-								},
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "mod-circulation-storage",
+							"description": "",
+							"item": [
 								{
-									"name": "Deploy mod-users-bl",
+									"name": "Register mod-circulation-storage",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a5a05ab6-80f7-48e3-8aeb-e47c0b63f5da",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
 									"request": {
-										"url": "http://localhost:9130/_/discovery/modules",
 										"method": "POST",
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"description": ""
+												"value": "application/json"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"srvcId\": \"mod-users-14.1.2-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
+											"raw": "{\n  \"id\": \"mod-circulation-storage-5.0.2-SNAPSHOT\",\n  \"name\": \"Circulation Storage Module\",\n  \"provides\": [\n    {\n      \"id\": \"loan-storage\",\n      \"version\": \"4.0\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-storage/loans\",\n          \"permissionsRequired\": [\"circulation-storage.loans.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-storage/loans/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.loans.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/loan-storage/loans\",\n          \"permissionsRequired\": [\"circulation-storage.loans.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/loan-storage/loans/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.loans.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/loan-storage/loans/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.loans.item.delete\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/loan-storage/loans\",\n          \"permissionsRequired\": [\"circulation-storage.loans.collection.delete\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-storage/loan-history\",\n          \"permissionsRequired\": [\"circulation-storage.loans-history.collection.get\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"loan-rules-storage\",\n      \"version\": \"1.0\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-rules-storage\",\n          \"permissionsRequired\": [\"circulation-storage.loan-rules.get\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/loan-rules-storage\",\n          \"permissionsRequired\": [\"circulation-storage.loan-rules.put\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"loan-policy-storage\",\n      \"version\": \"1.2\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-policy-storage/loan-policies\",\n          \"permissionsRequired\": [\"circulation-storage.loan-policies.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-policy-storage/loan-policies/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.loan-policies.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/loan-policy-storage/loan-policies\",\n          \"permissionsRequired\": [\"circulation-storage.loan-policies.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/loan-policy-storage/loan-policies/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.loan-policies.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/loan-policy-storage/loan-policies/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.loan-policies.item.delete\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/loan-policy-storage/loan-policies\",\n          \"permissionsRequired\": [\"circulation-storage.loan-policies.collection.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"request-storage\",\n      \"version\": \"2.0\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/request-storage/requests\",\n          \"permissionsRequired\": [\"circulation-storage.requests.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/request-storage/requests/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.requests.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/request-storage/requests\",\n          \"permissionsRequired\": [\"circulation-storage.requests.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/request-storage/requests/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.requests.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/request-storage/requests/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.requests.item.delete\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/request-storage/requests\",\n          \"permissionsRequired\": [\"circulation-storage.requests.collection.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"fixed-due-date-schedules-storage\",\n      \"version\": \"2.0\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/fixed-due-date-schedule-storage/fixed-due-date-schedules\",\n          \"permissionsRequired\": [\"circulation-storage.fixed-due-date-schedules.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/fixed-due-date-schedule-storage/fixed-due-date-schedules/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.fixed-due-date-schedules.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/fixed-due-date-schedule-storage/fixed-due-date-schedules\",\n          \"permissionsRequired\": [\"circulation-storage.fixed-due-date-schedules.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/fixed-due-date-schedule-storage/fixed-due-date-schedules/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.fixed-due-date-schedules.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/fixed-due-date-schedule-storage/fixed-due-date-schedules/{id}\",\n          \"permissionsRequired\": [\"circulation-storage.fixed-due-date-schedules.item.delete\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/fixed-due-date-schedule-storage/fixed-due-date-schedules\",\n          \"permissionsRequired\": [\"circulation-storage.fixed-due-date-schedules.collection.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"staff-slips-storage\",\n      \"version\": \"1.0\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/staff-slips-storage/staff-slips\"\n        },\n        {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/staff-slips-storage/staff-slips\"\n        }\n      ]\n    },\n    {\n      \"id\": \"_tenant\",\n      \"version\": \"1.0\",\n      \"interfaceType\": \"system\",\n      \"handlers\": [\n        {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/_/tenant\"\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\": [\n    {\n      \"permissionName\": \"circulation-storage.loans.collection.get\",\n      \"displayName\": \"Circulation storage - get loan collection\",\n      \"description\": \"Get loan collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loans.collection.delete\",\n      \"displayName\": \"Circulation storage - delete entire loan collection\",\n      \"description\": \"Delete entire loan collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loans.item.get\",\n      \"displayName\": \"Circulation storage - get individual loan\",\n      \"description\": \"Get individual loan from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loans.item.post\",\n      \"displayName\": \"Circulation storage - create individual loan\",\n      \"description\": \"Create individual loan in storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loans.item.put\",\n      \"displayName\": \"Circulation storage - modify loan\",\n      \"description\": \"Modify loan in storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loans.item.delete\",\n      \"displayName\": \"Circulation storage - delete individual loan\",\n      \"description\": \"Delete individual loan from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-rules.get\",\n      \"displayName\": \"Circulation storage - get loan rules\",\n      \"description\": \"Get loan rules from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-rules.put\",\n      \"displayName\": \"Circulation storage - modify loan rules\",\n      \"description\": \"Modify loan rules in storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-policies.collection.get\",\n      \"displayName\": \"Circulation storage - get loan policy collection\",\n      \"description\": \"Get loan policy collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-policies.collection.delete\",\n      \"displayName\": \"Circulation storage - delete entire loan collection\",\n      \"description\": \"Delete entire loan collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-policies.item.get\",\n      \"displayName\": \"Circulation storage - get individual loan policy\",\n      \"description\": \"Get individual loan policy from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-policies.item.post\",\n      \"displayName\": \"Circulation storage - create individual loan policy\",\n      \"description\": \"Create individual loan policy in storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-policies.item.put\",\n      \"displayName\": \"Circulation storage - modify loan policy\",\n      \"description\": \"Modify loan policy in storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loan-policies.item.delete\",\n      \"displayName\": \"Circulation storage - delete individual loan policy\",\n      \"description\": \"Delete individual loan policy from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.loans-history.collection.get\",\n      \"displayName\": \"Circulation storage - get loan history collection\",\n      \"description\": \"Get loan history collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.requests.collection.get\",\n      \"displayName\": \"Circulation storage - get request collection\",\n      \"description\": \"Get request collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.requests.collection.delete\",\n      \"displayName\": \"Circulation storage - delete entire request collection\",\n      \"description\": \"Delete entire request collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.requests.item.get\",\n      \"displayName\": \"Circulation storage - get individual request\",\n      \"description\": \"Get individual request from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.requests.item.post\",\n      \"displayName\": \"Circulation storage - create individual request\",\n      \"description\": \"Create individual request in storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.requests.item.put\",\n      \"displayName\": \"Circulation storage - modify request\",\n      \"description\": \"Modify request in storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.requests.item.delete\",\n      \"displayName\": \"Circulation storage - delete individual request\",\n      \"description\": \"Delete individual request from storage\"\n    },\n     {\n      \"permissionName\": \"circulation-storage.fixed-due-date-schedules.collection.get\",\n      \"displayName\": \"Circulation storage - get fixed due date collection\",\n      \"description\": \"Get fixed due date collection from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.fixed-due-date-schedules.item.get\",\n      \"displayName\": \"Circulation storage - get individual fixed due date\",\n      \"description\": \"Get individual fixed due date from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.fixed-due-date-schedules.item.post\",\n      \"displayName\": \"Circulation storage - create individual fixed due date\",\n      \"description\": \"Create individual fixed due date from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.fixed-due-date-schedules.item.put\",\n      \"displayName\": \"Circulation storage - modify individual fixed due date\",\n      \"description\": \"Modify individual fixed due date from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.fixed-due-date-schedules.item.delete\",\n      \"displayName\": \"Circulation storage - delete individual fixed due date\",\n      \"description\": \"Delete individual fixed due date from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.fixed-due-date-schedules.collection.delete\",\n      \"displayName\": \"Circulation storage - delete collection of fixed due date\",\n      \"description\": \"Delete collection of fixed due date from storage\"\n    },\n    {\n      \"permissionName\": \"circulation-storage.all\",\n      \"displayName\": \"Circulation storage module - all permissions\",\n      \"description\": \"Entire set of permissions needed to use the circulation storage module\",\n      \"subPermissions\": [\n        \"circulation-storage.loans.collection.get\",\n        \"circulation-storage.loans.item.get\",\n        \"circulation-storage.loans.item.post\",\n        \"circulation-storage.loans.item.put\",\n        \"circulation-storage.loans.item.delete\",\n        \"circulation-storage.loans.collection.delete\",\n        \"circulation-storage.loans-history.collection.get\",\n        \"circulation-storage.loan-rules.get\",\n        \"circulation-storage.loan-rules.put\",\n        \"circulation-storage.loan-policies.collection.get\",\n        \"circulation-storage.loan-policies.item.get\",\n        \"circulation-storage.loan-policies.item.post\",\n        \"circulation-storage.loan-policies.item.put\",\n        \"circulation-storage.loan-policies.item.delete\",\n        \"circulation-storage.loan-policies.collection.delete\",\n        \"circulation-storage.requests.collection.get\",\n        \"circulation-storage.requests.item.get\",\n        \"circulation-storage.requests.item.post\",\n        \"circulation-storage.requests.item.put\",\n        \"circulation-storage.requests.item.delete\",\n        \"circulation-storage.requests.collection.delete\",\n        \"circulation-storage.fixed-due-date-schedules.collection.delete\",\n        \"circulation-storage.fixed-due-date-schedules.item.delete\",\n        \"circulation-storage.fixed-due-date-schedules.item.put\",\n        \"circulation-storage.fixed-due-date-schedules.item.post\",\n        \"circulation-storage.fixed-due-date-schedules.item.get\",\n        \"circulation-storage.fixed-due-date-schedules.collection.get\"\n      ]\n    }\n  ],\n  \"launchDescriptor\": {\n    \"dockerImage\" : \"mod-circulation-storage:5.0.2-SNAPSHOT\",\n    \"dockerArgs\" : {\n      \"HostConfig\" : { \"PortBindings\": { \"8081/tcp\": [{ \"HostPort\": \"%p\" }] } }\n    },\n    \"dockerPull\" : false\n  }\n}\n\n"
 										},
-										"description": ""
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Enable for Tenant-bl",
+									"name": "Deploy mod-circulation-storage",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c457d0a0-144c-4341-a226-98f28e200e7b",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
 									"request": {
-										"url": "http://localhost:9130/_/proxy/tenants/devlib/modules",
 										"method": "POST",
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"description": ""
+												"value": "application/json"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"id\" : \"mod-users-14.1.2-SNAPSHOT\"\n}"
+											"raw": "{\n  \"srvcId\" : \"mod-circulation-storage-5.0.2-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\" : {\n    \"exec\" : \"java -jar ../mod-circulation-storage/target/mod-circulation-storage-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
 										},
-										"description": ""
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enable mod-circulation-storage for Tenant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3fb321be-9eb6-4c6b-9c66-4152506649b6",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\" : \"mod-circulation-storage-5.0.2-SNAPSHOT\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "mod-inventory",
+							"description": "",
+							"item": [
+								{
+									"name": "Register mod-inventory",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "73edc47d-ead7-4690-a440-95d2c6cafd1f",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-inventory-storage-11.0.0-SNAPSHOT\",\n  \"name\": \"Inventory Storage Module\",\n  \"provides\": [\n    {\n      \"id\": \"item-storage\",\n      \"version\": \"5.2\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/item-storage/items\",\n          \"permissionsRequired\": [\"inventory-storage.items.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/item-storage/items/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.items.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/item-storage/items\",\n          \"permissionsRequired\": [\"inventory-storage.items.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/item-storage/items/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.items.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/item-storage/items/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.items.item.delete\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/item-storage/items\",\n          \"permissionsRequired\": [\"inventory-storage.items.collection.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"holdings-storage\",\n      \"version\": \"1.2\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/holdings-storage/holdings\",\n          \"permissionsRequired\": [\"inventory-storage.holdings.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/holdings-storage/holdings/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.holdings.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/holdings-storage/holdings\",\n          \"permissionsRequired\": [\"inventory-storage.holdings.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/holdings-storage/holdings/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.holdings.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/holdings-storage/holdings/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.holdings.item.delete\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/holdings-storage/holdings\",\n          \"permissionsRequired\": [\"inventory-storage.holdings.collection.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"instance-storage\",\n      \"version\": \"4.3\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/instance-storage/instances\",\n          \"permissionsRequired\": [\"inventory-storage.instances.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/instance-storage/instances/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instances.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/instance-storage/instances\",\n          \"permissionsRequired\": [\"inventory-storage.instances.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/instance-storage/instances/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instances.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/instance-storage/instances/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instances.item.delete\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/instance-storage/instances\",\n          \"permissionsRequired\": [\"inventory-storage.instances.collection.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"loan-types\",\n      \"version\": \"2.2\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-types\",\n          \"permissionsRequired\": [\"inventory-storage.loan-types.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/loan-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.loan-types.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/loan-types\",\n          \"permissionsRequired\": [\"inventory-storage.loan-types.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/loan-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.loan-types.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/loan-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.loan-types.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"material-types\",\n      \"version\": \"2.2\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/material-types\",\n          \"permissionsRequired\": [\"inventory-storage.material-types.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/material-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.material-types.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/material-types\",\n          \"permissionsRequired\": [\"inventory-storage.material-types.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/material-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.material-types.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/material-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.material-types.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"shelf-locations\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/shelf-locations\",\n          \"permissionsRequired\": [\"inventory-storage.shelf-locations.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/shelf-locations/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.shelf-locations.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/shelf-locations\",\n          \"permissionsRequired\": [\"inventory-storage.shelf-locations.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/shelf-locations/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.shelf-locations.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/shelf-locations/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.shelf-locations.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"location-units\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/location-units/institutions\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.institutions.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/location-units/institutions/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.institutions.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/location-units/institutions\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.institutions.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/location-units/institutions/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.institutions.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/location-units/institutions/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.institutions.item.delete\"]\n        },\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/location-units/campuses\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.campuses.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/location-units/campuses/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.campuses.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/location-units/campuses\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.campuses.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/location-units/campuses/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.campuses.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/location-units/campuses/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.campuses.item.delete\"]\n        },\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/location-units/libraries\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.libraries.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/location-units/libraries/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.libraries.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/location-units/libraries\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.libraries.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/location-units/libraries/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.libraries.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/location-units/libraries/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.location-units.libraries.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"locations\",\n      \"version\": \"2.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/locations\",\n          \"permissionsRequired\": [\"inventory-storage.locations.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/locations/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.locations.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/locations\",\n          \"permissionsRequired\": [\"inventory-storage.locations.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/locations/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.locations.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/locations/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.locations.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"identifier-types\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/identifier-types\",\n          \"permissionsRequired\": [\"inventory-storage.identifier-types.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/identifier-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.identifier-types.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/identifier-types\",\n          \"permissionsRequired\": [\"inventory-storage.identifier-types.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/identifier-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.identifier-types.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/identifier-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.identifier-types.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"contributor-types\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/contributor-types\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-types.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/contributor-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-types.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/contributor-types\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-types.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/contributor-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-types.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/contributor-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-types.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"contributor-name-types\",\n      \"version\": \"1.2\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/contributor-name-types\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-name-types.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/contributor-name-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-name-types.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/contributor-name-types\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-name-types.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/contributor-name-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-name-types.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/contributor-name-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.contributor-name-types.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"instance-formats\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/instance-formats\",\n          \"permissionsRequired\": [\"inventory-storage.instance-formats.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/instance-formats/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instance-formats.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/instance-formats\",\n          \"permissionsRequired\": [\"inventory-storage.instance-formats.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/instance-formats/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instance-formats.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/instance-formats/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instance-formats.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"instance-types\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/instance-types\",\n          \"permissionsRequired\": [\"inventory-storage.instance-types.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/instance-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instance-types.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/instance-types\",\n          \"permissionsRequired\": [\"inventory-storage.instance-types.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/instance-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instance-types.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/instance-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.instance-types.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"classification-types\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/classification-types\",\n          \"permissionsRequired\": [\"inventory-storage.classification-types.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/classification-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.classification-types.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/classification-types\",\n          \"permissionsRequired\": [\"inventory-storage.classification-types.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/classification-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.classification-types.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/classification-types/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.classification-types.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"service-points\",\n      \"version\": \"2.0\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/service-points\",\n          \"permissionsRequired\": [\"inventory-storage.service-points.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/service-points/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.service-points.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/service-points\",\n          \"permissionsRequired\": [\"inventory-storage.service-points.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/service-points/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.service-points.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/service-points/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.service-points.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\": \"platforms\",\n      \"version\": \"1.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/platforms\",\n          \"permissionsRequired\": [\"inventory-storage.platforms.collection.get\"]\n        }, {\n          \"methods\": [\"GET\"],\n          \"pathPattern\": \"/platforms/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.platforms.item.get\"]\n        }, {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/platforms\",\n          \"permissionsRequired\": [\"inventory-storage.platforms.item.post\"]\n        }, {\n          \"methods\": [\"PUT\"],\n          \"pathPattern\": \"/platforms/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.platforms.item.put\"]\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/platforms/{id}\",\n          \"permissionsRequired\": [\"inventory-storage.platforms.item.delete\"]\n        }\n      ]\n    },\n    {\n      \"id\" : \"_tenant\",\n      \"version\" : \"1.0\",\n      \"interfaceType\": \"system\",\n      \"handlers\": [\n        {\n          \"methods\": [\"POST\"],\n          \"pathPattern\": \"/_/tenant\"\n        }, {\n          \"methods\": [\"DELETE\"],\n          \"pathPattern\": \"/_/tenant\"\n        }\n      ]\n    }\n  ],\n  \"permissionSets\": [\n    {\n      \"permissionName\": \"inventory-storage.items.collection.get\",\n      \"displayName\": \"inventory storage - get item collection\",\n      \"description\": \"get item collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.items.collection.delete\",\n      \"displayName\": \"inventory storage - delete entire item collection\",\n      \"description\": \"delete entire item collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.items.item.get\",\n      \"displayName\": \"inventory storage - get individual item\",\n      \"description\": \"get individual item from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.items.item.post\",\n      \"displayName\": \"inventory storage - create individual item\",\n      \"description\": \"create individual item in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.items.item.put\",\n      \"displayName\": \"inventory storage - modify item\",\n      \"description\": \"modify item in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.items.item.delete\",\n      \"displayName\": \"inventory storage - delete individual item\",\n      \"description\": \"delete individual item from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.holdings.collection.get\",\n      \"displayName\": \"inventory storage - get holdings collection\",\n      \"description\": \"get holdings collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.holdings.collection.delete\",\n      \"displayName\": \"inventory storage - delete entire holdings collection\",\n      \"description\": \"delete entire holdings collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.holdings.item.get\",\n      \"displayName\": \"inventory storage - get individual holdings record\",\n      \"description\": \"get individual holdings record from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.holdings.item.post\",\n      \"displayName\": \"inventory storage - create individual holdings record\",\n      \"description\": \"create individual holdings record in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.holdings.item.put\",\n      \"displayName\": \"inventory storage - modify holdings record\",\n      \"description\": \"modify holdings record in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.holdings.item.delete\",\n      \"displayName\": \"inventory storage - delete individual holdings record\",\n      \"description\": \"delete individual holdings record from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instances.collection.get\",\n      \"displayName\": \"inventory storage - get instance collection\",\n      \"description\": \"get instance collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instances.collection.delete\",\n      \"displayName\": \"inventory storage - delete entire instance collection\",\n      \"description\": \"delete entire instance collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instances.item.get\",\n      \"displayName\": \"inventory storage - get individual instance\",\n      \"description\": \"get individual instance from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instances.item.post\",\n      \"displayName\": \"inventory storage - create individual instance\",\n      \"description\": \"create individual instance in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instances.item.put\",\n      \"displayName\": \"inventory storage - modify instance\",\n      \"description\": \"modify instance in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instances.item.delete\",\n      \"displayName\": \"inventory storage - delete individual instance\",\n      \"description\": \"delete individual instance from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.loan-types.collection.get\",\n      \"displayName\": \"inventory storage - get loan-type collection\",\n      \"description\": \"get loan-type collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.loan-types.item.get\",\n      \"displayName\": \"inventory storage - get individual loan-type\",\n      \"description\": \"get individual loan-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.loan-types.item.post\",\n      \"displayName\": \"inventory storage - create individual loan-type\",\n      \"description\": \"create individual loan-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.loan-types.item.put\",\n      \"displayName\": \"inventory storage - modify loan-type\",\n      \"description\": \"modify loan-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.loan-types.item.delete\",\n      \"displayName\": \"inventory storage - delete individual loan-type\",\n      \"description\": \"delete individual loan-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.material-types.collection.get\",\n      \"displayName\": \"inventory storage - get material-type collection\",\n      \"description\": \"get material-type collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.material-types.item.get\",\n      \"displayName\": \"inventory storage - get individual material-type\",\n      \"description\": \"get individual material-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.material-types.item.post\",\n      \"displayName\": \"inventory storage - create individual material-type\",\n      \"description\": \"create individual material-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.material-types.item.put\",\n      \"displayName\": \"inventory storage - modify material-type\",\n      \"description\": \"modify material-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.material-types.item.delete\",\n      \"displayName\": \"inventory storage - delete individual material-type\",\n      \"description\": \"delete individual material-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.shelf-locations.collection.get\",\n      \"displayName\": \"inventory storage - get shelf location collection\",\n      \"description\": \"get shelf location collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.shelf-locations.item.get\",\n      \"displayName\": \"inventory storage - get individual shelf location\",\n      \"description\": \"get individual shelf location from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.shelf-locations.item.post\",\n      \"displayName\": \"inventory storage - create individual shelf location\",\n      \"description\": \"create individual shelf location in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.shelf-locations.item.put\",\n      \"displayName\": \"inventory storage - modify shelf location\",\n      \"description\": \"modify shelf location in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.shelf-locations.item.delete\",\n      \"displayName\": \"inventory storage - delete individual shelf location\",\n      \"description\": \"delete individual shelf location from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.institutions.collection.get\",\n      \"displayName\": \"inventory storage - location units - get institution collection\",\n      \"description\": \"Get institution collection\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.institutions.item.get\",\n      \"displayName\": \"inventory storage - location units - get individual institution\",\n      \"description\": \"get individual institution\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.institutions.item.post\",\n      \"displayName\": \"inventory storage - location units - create individual institution\",\n      \"description\": \"create individual instution\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.institutions.item.put\",\n      \"displayName\": \"inventory storage - location units - modify institution\",\n      \"description\": \"modify institution\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.institutions.item.delete\",\n      \"displayName\": \"inventory storage - location units - delete individual institution\",\n      \"description\": \"delete individual institution\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.campuses.collection.get\",\n      \"displayName\": \"inventory storage - location units - get campus collection\",\n      \"description\": \"Get campus collection\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.campuses.item.get\",\n      \"displayName\": \"inventory storage - location units - get individual campus\",\n      \"description\": \"get individual campus\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.campuses.item.post\",\n      \"displayName\": \"inventory storage - location units - create individual campus\",\n      \"description\": \"create individual instution\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.campuses.item.put\",\n      \"displayName\": \"inventory storage - location units - modify campus\",\n      \"description\": \"modify campus\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.campuses.item.delete\",\n      \"displayName\": \"inventory storage - location units - delete individual campus\",\n      \"description\": \"delete individual campus\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.libraries.collection.get\",\n      \"displayName\": \"inventory storage - location units - get library collection\",\n      \"description\": \"Get library collection\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.libraries.item.get\",\n      \"displayName\": \"inventory storage - location units - get individual library\",\n      \"description\": \"get individual library\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.libraries.item.post\",\n      \"displayName\": \"inventory storage - location units - create individual library\",\n      \"description\": \"create individual instution\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.libraries.item.put\",\n      \"displayName\": \"inventory storage - location units - modify library\",\n      \"description\": \"modify library\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.location-units.libraries.item.delete\",\n      \"displayName\": \"inventory storage - location units - delete individual library\",\n      \"description\": \"delete individual library\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.locations.collection.get\",\n      \"displayName\": \"inventory storage - locations - get location collection\",\n      \"description\": \"get location collection\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.locations.item.get\",\n      \"displayName\": \"inventory storage - locations - get individual location\",\n      \"description\": \"get individual location\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.locations.item.post\",\n      \"displayName\": \"inventory storage - locations - create individual location\",\n      \"description\": \"create individual location\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.locations.item.put\",\n      \"displayName\": \"inventory storage - locations - modify location\",\n      \"description\": \"modify location\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.locations.item.delete\",\n      \"displayName\": \"inventory storage - locations - delete individual location\",\n      \"description\": \"delete individual location\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.identifier-types.collection.get\",\n      \"displayName\": \"inventory storage - get identifier-type collection\",\n      \"description\": \"get identifier-type collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.identifier-types.item.get\",\n      \"displayName\": \"inventory storage - get individual identifier-type\",\n      \"description\": \"get individual identifier-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.identifier-types.item.post\",\n      \"displayName\": \"inventory storage - create individual identifier-type\",\n      \"description\": \"create individual identifier-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.identifier-types.item.put\",\n      \"displayName\": \"inventory storage - modify identifier-type\",\n      \"description\": \"modify identifier-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.identifier-types.item.delete\",\n      \"displayName\": \"inventory storage - delete individual identifier-type\",\n      \"description\": \"delete individual identifier-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-types.collection.get\",\n      \"displayName\": \"inventory storage - get contributor-type collection\",\n      \"description\": \"get contributor-type collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-types.item.get\",\n      \"displayName\": \"inventory storage - get individual contributor-type\",\n      \"description\": \"get individual contributor-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-types.item.post\",\n      \"displayName\": \"inventory storage - create individual contributor-type\",\n      \"description\": \"create individual contributor-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-types.item.put\",\n      \"displayName\": \"inventory storage - modify contributor-type\",\n      \"description\": \"modify contributor-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-types.item.delete\",\n      \"displayName\": \"inventory storage - delete individual contributor-type\",\n      \"description\": \"delete individual contributor-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.service-points.collection.get\",\n      \"displayName\": \"inventory storage - get service-point collection\",\n      \"description\": \"get service-point collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.service-points.item.get\",\n      \"displayName\": \"inventory storage - get individual service-point\",\n      \"description\": \"get individual service-point from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.service-points.item.post\",\n      \"displayName\": \"inventory storage - create individual service-point\",\n      \"description\": \"create individual service-point in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.service-points.item.put\",\n      \"displayName\": \"inventory storage - modify service-point\",\n      \"description\": \"modify service-point in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.service-points.item.delete\",\n      \"displayName\": \"inventory storage - delete individual service-point\",\n      \"description\": \"delete individual service-point from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-name-types.collection.get\",\n      \"displayName\": \"inventory storage - get contributor-name-type collection\",\n      \"description\": \"get contributor-name-type collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-name-types.item.get\",\n      \"displayName\": \"inventory storage - get individual contributor-name-type\",\n      \"description\": \"get individual contributor-name-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-name-types.item.post\",\n      \"displayName\": \"inventory storage - create individual contributor-name-type\",\n      \"description\": \"create individual contributor-name-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-name-types.item.put\",\n      \"displayName\": \"inventory storage - modify contributor-name-type\",\n      \"description\": \"modify contributor-name-type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.contributor-name-types.item.delete\",\n      \"displayName\": \"inventory storage - delete individual contributor-name-type\",\n      \"description\": \"delete individual contributor-name-type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-formats.collection.get\",\n      \"displayName\": \"inventory storage - get formats collection\",\n      \"description\": \"get contributor-name-type collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-formats.item.get\",\n      \"displayName\": \"inventory storage - get individual format\",\n      \"description\": \"get individual instance format from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-formats.item.post\",\n      \"displayName\": \"inventory storage - create individual format\",\n      \"description\": \"create individual instance format in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-formats.item.put\",\n      \"displayName\": \"inventory storage - modify format\",\n      \"description\": \"modify instance format in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-formats.item.delete\",\n      \"displayName\": \"inventory storage - delete individual format\",\n      \"description\": \"delete individual instance format from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-types.collection.get\",\n      \"displayName\": \"inventory storage - get instance types collection\",\n      \"description\": \"get instance-type collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-types.item.get\",\n      \"displayName\": \"inventory storage - get individual instance type\",\n      \"description\": \"get individual instance type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-types.item.post\",\n      \"displayName\": \"inventory storage - create individual instance type\",\n      \"description\": \"create individual instance type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-types.item.put\",\n      \"displayName\": \"inventory storage - modify instance type\",\n      \"description\": \"modify instance type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.instance-types.item.delete\",\n      \"displayName\": \"inventory storage - delete individual instance type\",\n      \"description\": \"delete instance type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.classification-types.collection.get\",\n      \"displayName\": \"inventory storage - get classification types collection\",\n      \"description\": \"get classification types collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.classification-types.item.get\",\n      \"displayName\": \"inventory storage - get individual classification type\",\n      \"description\": \"get individual classification type from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.classification-types.item.post\",\n      \"displayName\": \"inventory storage - create individual classification type\",\n      \"description\": \"create individual classification type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.classification-types.item.put\",\n      \"displayName\": \"inventory storage - modify classification type\",\n      \"description\": \"modify classification type in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.classification-types.item.delete\",\n      \"displayName\": \"inventory storage - delete individual classification type\",\n      \"description\": \"delete individual classification qualifier from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.platforms.collection.get\",\n      \"displayName\": \"inventory storage - get platforms collection\",\n      \"description\": \"get platforms collection from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.platforms.item.get\",\n      \"displayName\": \"inventory storage - get individual platform\",\n      \"description\": \"get individual platform from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.platforms.item.post\",\n      \"displayName\": \"inventory storage - create platform\",\n      \"description\": \"create individual platform in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.platforms.item.put\",\n      \"displayName\": \"inventory storage - modify platform\",\n      \"description\": \"modify platform in storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.platforms.item.delete\",\n      \"displayName\": \"inventory storage - delete individual platform\",\n      \"description\": \"delete individual platform from storage\"\n    },\n    {\n      \"permissionName\": \"inventory-storage.all\",\n      \"displayName\": \"inventory storage module - all permissions\",\n      \"description\": \"Entire set of permissions needed to use the inventory storage module\",\n      \"subPermissions\": [\n        \"inventory-storage.items.collection.get\",\n        \"inventory-storage.items.item.get\",\n        \"inventory-storage.items.item.post\",\n        \"inventory-storage.items.item.put\",\n        \"inventory-storage.items.item.delete\",\n        \"inventory-storage.items.collection.delete\",\n        \"inventory-storage.holdings.collection.get\",\n        \"inventory-storage.holdings.item.get\",\n        \"inventory-storage.holdings.item.post\",\n        \"inventory-storage.holdings.item.put\",\n        \"inventory-storage.holdings.item.delete\",\n        \"inventory-storage.holdings.collection.delete\",\n        \"inventory-storage.instances.collection.get\",\n        \"inventory-storage.instances.item.get\",\n        \"inventory-storage.instances.item.post\",\n        \"inventory-storage.instances.item.put\",\n        \"inventory-storage.instances.item.delete\",\n        \"inventory-storage.instances.collection.delete\",\n        \"inventory-storage.loan-types.collection.get\",\n        \"inventory-storage.loan-types.item.get\",\n        \"inventory-storage.loan-types.item.post\",\n        \"inventory-storage.loan-types.item.put\",\n        \"inventory-storage.loan-types.item.delete\",\n        \"inventory-storage.material-types.collection.get\",\n        \"inventory-storage.material-types.item.get\",\n        \"inventory-storage.material-types.item.post\",\n        \"inventory-storage.material-types.item.put\",\n        \"inventory-storage.material-types.item.delete\",\n        \"inventory-storage.shelf-locations.collection.get\",\n        \"inventory-storage.shelf-locations.item.get\",\n        \"inventory-storage.shelf-locations.item.post\",\n        \"inventory-storage.shelf-locations.item.put\",\n        \"inventory-storage.shelf-locations.item.delete\",\n        \"inventory-storage.location-units.institutions.collection.get\",\n        \"inventory-storage.location-units.institutions.item.get\",\n        \"inventory-storage.location-units.institutions.item.post\",\n        \"inventory-storage.location-units.institutions.item.put\",\n        \"inventory-storage.location-units.institutions.item.delete\",\n        \"inventory-storage.location-units.campuses.collection.get\",\n        \"inventory-storage.location-units.campuses.item.get\",\n        \"inventory-storage.location-units.campuses.item.post\",\n        \"inventory-storage.location-units.campuses.item.put\",\n        \"inventory-storage.location-units.campuses.item.delete\",\n        \"inventory-storage.location-units.libraries.collection.get\",\n        \"inventory-storage.location-units.libraries.item.get\",\n        \"inventory-storage.location-units.libraries.item.post\",\n        \"inventory-storage.location-units.libraries.item.put\",\n        \"inventory-storage.location-units.libraries.item.delete\",\n        \"inventory-storage.locations.collection.get\",\n        \"inventory-storage.locations.item.get\",\n        \"inventory-storage.locations.item.post\",\n        \"inventory-storage.locations.item.put\",\n        \"inventory-storage.locations.item.delete\",\n        \"inventory-storage.identifier-types.collection.get\",\n        \"inventory-storage.identifier-types.item.get\",\n        \"inventory-storage.identifier-types.item.post\",\n        \"inventory-storage.identifier-types.item.put\",\n        \"inventory-storage.identifier-types.item.delete\",\n        \"inventory-storage.contributor-types.collection.get\",\n        \"inventory-storage.contributor-types.item.get\",\n        \"inventory-storage.contributor-types.item.post\",\n        \"inventory-storage.contributor-types.item.put\",\n        \"inventory-storage.contributor-types.item.delete\",\n        \"inventory-storage.contributor-name-types.collection.get\",\n        \"inventory-storage.contributor-name-types.item.get\",\n        \"inventory-storage.contributor-name-types.item.post\",\n        \"inventory-storage.contributor-name-types.item.put\",\n        \"inventory-storage.contributor-name-types.item.delete\",\n        \"inventory-storage.instance-formats.collection.get\",\n        \"inventory-storage.instance-formats.item.get\",\n        \"inventory-storage.instance-formats.item.post\",\n        \"inventory-storage.instance-formats.item.put\",\n        \"inventory-storage.instance-formats.item.delete\",\n        \"inventory-storage.instance-types.collection.get\",\n        \"inventory-storage.instance-types.item.get\",\n        \"inventory-storage.instance-types.item.post\",\n        \"inventory-storage.instance-types.item.put\",\n        \"inventory-storage.instance-types.item.delete\",\n        \"inventory-storage.classification-types.collection.get\",\n        \"inventory-storage.classification-types.item.get\",\n        \"inventory-storage.classification-types.item.post\",\n        \"inventory-storage.classification-types.item.put\",\n        \"inventory-storage.classification-types.item.delete\",\n        \"inventory-storage.service-points.collection.get\",\n        \"inventory-storage.service-points.item.get\",\n        \"inventory-storage.service-points.item.post\",\n        \"inventory-storage.service-points.item.put\",\n        \"inventory-storage.service-points.item.delete\",\n        \"inventory-storage.platforms.collection.get\",\n        \"inventory-storage.platforms.item.get\",\n        \"inventory-storage.platforms.item.post\",\n        \"inventory-storage.platforms.item.put\",\n        \"inventory-storage.platforms.item.delete\"\n      ]\n    }\n  ],\n    \"launchDescriptor\": {\n    \"dockerImage\": \"mod-inventory-storage:11.0.0-SNAPSHOT\",\n    \"dockerArgs\": {\n      \"HostConfig\": { \"PortBindings\": { \"8081/tcp\":  [{ \"HostPort\": \"%p\" }] } }\n    },\n    \"dockerPull\" : false\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-inventory",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a7fca332-2892-48cc-b2fa-251f43d8aaf2",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\" : \"mod-inventory-storage-11.0.0-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\" : {\n    \"exec\" : \"java -jar ../mod-inventory-storage/target/mod-inventory-storage-fat.jar -Dhttp.port=%p embed_postgres=true\"\n  }\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enable mod-inventory for Tenant-bl",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "83462934-8b2c-4e2c-824a-e3282e50b828",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\" : \"mod-inventory-storage-11.0.0-SNAPSHOT\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "mod-circulation",
+							"description": "",
+							"item": [
+								{
+									"name": "Register mod-circulation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5b96ad84-a196-442d-b219-89c9a5ecd427",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"mod-circulation-10.3.0-SNAPSHOT\",\n  \"name\": \"Circulation Module\",\n  \"provides\": [\n    {\n      \"id\": \"circulation\",\n      \"version\": \"3.1\",\n      \"handlers\": [\n        {\n          \"methods\": [\n            \"POST\"\n          ],\n          \"pathPattern\": \"/circulation/check-out-by-barcode\",\n          \"permissionsRequired\": [\n            \"circulation.check-out-by-barcode.post\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loans.item.post\",\n            \"circulation-storage.loans.collection.get\",\n            \"circulation.loan-rules.apply.get\",\n            \"circulation-storage.requests.collection.get\",\n            \"circulation-storage.requests.item.put\",\n            \"inventory-storage.items.item.put\",\n            \"inventory-storage.items.item.get\",\n            \"inventory-storage.items.collection.get\",\n            \"inventory-storage.locations.item.get\",\n            \"inventory-storage.locations.collection.get\",\n            \"inventory-storage.holdings.collection.get\",\n            \"inventory-storage.holdings.item.get\",\n            \"inventory-storage.instances.collection.get\",\n            \"inventory-storage.instances.item.get\",\n            \"users.item.get\",\n            \"proxiesfor.collection.get\",\n            \"inventory-storage.material-types.item.get\",\n            \"circulation-storage.loan-policies.item.get\",\n            \"circulation-storage.fixed-due-date-schedules.item.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"GET\"\n          ],\n          \"pathPattern\": \"/circulation/loans\",\n          \"permissionsRequired\": [\n            \"circulation.loans.collection.get\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loans.collection.get\",\n            \"inventory-storage.items.item.get\",\n            \"inventory-storage.items.collection.get\",\n            \"inventory-storage.locations.item.get\",\n            \"inventory-storage.locations.collection.get\",\n            \"inventory-storage.holdings.collection.get\",\n            \"inventory-storage.holdings.item.get\",\n            \"inventory-storage.instances.collection.get\",\n            \"inventory-storage.instances.item.get\",\n            \"inventory-storage.material-types.collection.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"POST\"\n          ],\n          \"pathPattern\": \"/circulation/loans\",\n          \"permissionsRequired\": [\n            \"circulation.loans.item.post\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loans.item.post\",\n            \"circulation-storage.loans.collection.get\",\n            \"circulation.loan-rules.apply.get\",\n            \"circulation-storage.requests.collection.get\",\n            \"circulation-storage.requests.item.put\",\n            \"inventory-storage.items.item.put\",\n            \"inventory-storage.items.item.get\",\n            \"inventory-storage.items.collection.get\",\n            \"inventory-storage.locations.item.get\",\n            \"inventory-storage.locations.collection.get\",\n            \"inventory-storage.holdings.collection.get\",\n            \"inventory-storage.holdings.item.get\",\n            \"inventory-storage.instances.collection.get\",\n            \"inventory-storage.instances.item.get\",\n            \"users.item.get\",\n            \"proxiesfor.collection.get\",\n            \"inventory-storage.material-types.item.get\",\n            \"circulation-storage.loan-policies.item.get\",\n            \"circulation-storage.fixed-due-date-schedules.item.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"DELETE\"\n          ],\n          \"pathPattern\": \"/circulation/loans\",\n          \"permissionsRequired\": [\n            \"circulation.loans.collection.delete\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loans.collection.delete\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"GET\"\n          ],\n          \"pathPattern\": \"/circulation/loans/{id}\",\n          \"permissionsRequired\": [\n            \"circulation.loans.item.get\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loans.item.get\",\n            \"inventory-storage.items.item.get\",\n            \"inventory-storage.items.collection.get\",\n            \"inventory-storage.locations.item.get\",\n            \"inventory-storage.locations.collection.get\",\n            \"inventory-storage.holdings.collection.get\",\n            \"inventory-storage.holdings.item.get\",\n            \"inventory-storage.instances.collection.get\",\n            \"inventory-storage.instances.item.get\",\n            \"inventory-storage.material-types.item.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"PUT\"\n          ],\n          \"pathPattern\": \"/circulation/loans/{id}\",\n          \"permissionsRequired\": [\n            \"circulation.loans.item.put\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loans.item.put\",\n            \"circulation-storage.loans.collection.get\",\n            \"circulation.loan-rules.apply.get\",\n            \"circulation-storage.requests.item.put\",\n            \"circulation-storage.requests.collection.get\",\n            \"inventory-storage.items.item.get\",\n            \"inventory-storage.items.item.put\",\n            \"inventory-storage.items.collection.get\",\n            \"inventory-storage.locations.item.get\",\n            \"inventory-storage.locations.collection.get\",\n            \"inventory-storage.holdings.collection.get\",\n            \"inventory-storage.holdings.item.get\",\n            \"inventory-storage.instances.collection.get\",\n            \"inventory-storage.instances.item.get\",\n            \"proxiesfor.collection.get\",\n            \"users.item.get\",\n            \"proxiesfor.collection.get\",\n            \"inventory-storage.material-types.item.get\",\n            \"circulation-storage.loan-policies.item.get\",\n            \"circulation-storage.fixed-due-date-schedules.item.get\"\n\n\n          ]\n        },\n        {\n          \"methods\": [\n            \"DELETE\"\n          ],\n          \"pathPattern\": \"/circulation/loans/{id}\",\n          \"permissionsRequired\": [\n            \"circulation.loans.item.delete\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loans.item.delete\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"GET\"\n          ],\n          \"pathPattern\": \"/circulation/loan-rules\",\n          \"permissionsRequired\": [\n            \"circulation.loan-rules.get\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loan-rules.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"PUT\"\n          ],\n          \"pathPattern\": \"/circulation/loan-rules\",\n          \"permissionsRequired\": [\n            \"circulation.loan-rules.put\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loan-rules.put\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"GET\"\n          ],\n          \"pathPattern\": \"/circulation/loan-rules/apply\",\n          \"permissionsRequired\": [\n            \"circulation.loan-rules.apply.get\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loan-rules.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"GET\"\n          ],\n          \"pathPattern\": \"/circulation/loan-rules/apply-all\",\n          \"permissionsRequired\": [\n            \"circulation.loan-rules.apply-all.get\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.loan-rules.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"GET\"\n          ],\n          \"pathPattern\": \"/circulation/requests\",\n          \"permissionsRequired\": [\n            \"circulation.requests.collection.get\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.requests.collection.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"POST\"\n          ],\n          \"pathPattern\": \"/circulation/requests\",\n          \"permissionsRequired\": [\n            \"circulation.requests.item.post\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.requests.item.post\",\n            \"circulation-storage.requests.collection.get\",\n            \"inventory-storage.items.item.get\",\n            \"inventory-storage.items.collection.get\",\n            \"inventory-storage.items.item.put\",\n            \"users.item.get\",\n            \"circulation-storage.loans.item.put\",\n            \"circulation-storage.loans.collection.get\",\n            \"inventory-storage.holdings.collection.get\",\n            \"inventory-storage.holdings.item.get\",\n            \"inventory-storage.instances.collection.get\",\n            \"inventory-storage.instances.item.get\",\n            \"proxiesfor.collection.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"DELETE\"\n          ],\n          \"pathPattern\": \"/circulation/requests\",\n          \"permissionsRequired\": [\n            \"circulation.requests.collection.delete\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.requests.collection.delete\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"GET\"\n          ],\n          \"pathPattern\": \"/circulation/requests/{id}\",\n          \"permissionsRequired\": [\n            \"circulation.requests.item.get\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.requests.item.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"PUT\"\n          ],\n          \"pathPattern\": \"/circulation/requests/{id}\",\n          \"permissionsRequired\": [\n            \"circulation.requests.item.put\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.requests.item.put\",\n            \"circulation-storage.requests.item.post\",\n            \"inventory-storage.items.item.get\",\n            \"inventory-storage.items.collection.get\",\n            \"inventory-storage.items.item.put\",\n            \"users.item.get\",\n            \"circulation-storage.loans.item.put\",\n            \"circulation-storage.loans.collection.get\",\n            \"inventory-storage.holdings.collection.get\",\n            \"inventory-storage.holdings.item.get\",\n            \"inventory-storage.instances.collection.get\",\n            \"inventory-storage.instances.item.get\",\n            \"proxiesfor.collection.get\"\n          ]\n        },\n        {\n          \"methods\": [\n            \"DELETE\"\n          ],\n          \"pathPattern\": \"/circulation/requests/{id}\",\n          \"permissionsRequired\": [\n            \"circulation.requests.item.delete\"\n          ],\n          \"modulePermissions\": [\n            \"circulation-storage.requests.item.delete\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"requires\": [\n    {\n      \"id\": \"loan-storage\",\n      \"version\": \"4.0\"\n    },\n    {\n      \"id\": \"loan-rules-storage\",\n      \"version\": \"1.0\"\n    },\n    {\n      \"id\": \"item-storage\",\n      \"version\": \"5.0\"\n    },\n    {\n      \"id\": \"instance-storage\",\n      \"version\": \"4.0\"\n    },\n    {\n      \"id\": \"holdings-storage\",\n      \"version\": \"1.0\"\n    },\n    {\n      \"id\": \"request-storage\",\n      \"version\": \"2.0\"\n    },\n    {\n      \"id\": \"users\",\n      \"version\": \"14.2 15.0\"\n    },\n    {\n      \"id\": \"locations\",\n      \"version\": \"1.1 2.0\"\n    },\n    {\n      \"id\": \"material-types\",\n      \"version\": \"2.0\"\n    },\n    {\n      \"id\": \"loan-policy-storage\",\n      \"version\": \"1.2\"\n    },\n    {\n      \"id\": \"fixed-due-date-schedules-storage\",\n      \"version\": \"2.0\"\n    }\n  ],\n  \"permissionSets\": [\n    {\n      \"permissionName\": \"circulation.check-out-by-barcode.post\",\n      \"displayName\": \"circulation - check out item by barcode\",\n      \"description\": \"check out an item using barcodes for item and loanee\"\n    },\n    {\n      \"permissionName\": \"circulation.loans.collection.get\",\n      \"displayName\": \"circulation - get loan collection\",\n      \"description\": \"get loan collection\"\n    },\n    {\n      \"permissionName\": \"circulation.loans.collection.delete\",\n      \"displayName\": \"circulation - delete entire loan collection\",\n      \"description\": \"delete entire loan collection\"\n    },\n    {\n      \"permissionName\": \"circulation.loans.item.get\",\n      \"displayName\": \"circulation - get individual loan\",\n      \"description\": \"get individual loan\"\n    },\n    {\n      \"permissionName\": \"circulation.loans.item.post\",\n      \"displayName\": \"circulation - create individual loan\",\n      \"description\": \"create individual loan\"\n    },\n    {\n      \"permissionName\": \"circulation.loans.item.put\",\n      \"displayName\": \"circulation - modify loan\",\n      \"description\": \"modify individual loan\"\n    },\n    {\n      \"permissionName\": \"circulation.loans.item.delete\",\n      \"displayName\": \"circulation - delete individual loan\",\n      \"description\": \"delete individual loan\"\n    },\n    {\n      \"permissionName\": \"circulation.loan-rules.get\",\n      \"displayName\": \"Circulation - get loan rules\",\n      \"description\": \"Get loan rules\"\n    },\n    {\n      \"permissionName\": \"circulation.loan-rules.put\",\n      \"displayName\": \"Circulation - modify loan rules\",\n      \"description\": \"Modify loan rules\"\n    },\n    {\n      \"permissionName\": \"circulation.loan-rules.apply.get\",\n      \"displayName\": \"Circulation - apply loan rules\",\n      \"description\": \"Apply loan rules to get matching policy\"\n    },\n    {\n      \"permissionName\": \"circulation.loan-rules.apply-all.get\",\n      \"displayName\": \"Circulation - apply loan rules - all matching policies\",\n      \"description\": \"Apply loan rules to get all matching policies\"\n    },\n    {\n      \"permissionName\": \"circulation.requests.collection.get\",\n      \"displayName\": \"circulation - get request collection\",\n      \"description\": \"get request collection\"\n    },\n    {\n      \"permissionName\": \"circulation.requests.collection.delete\",\n      \"displayName\": \"circulation - delete entire request collection\",\n      \"description\": \"delete entire request collection\"\n    },\n    {\n      \"permissionName\": \"circulation.requests.item.get\",\n      \"displayName\": \"circulation - get individual request\",\n      \"description\": \"get individual request\"\n    },\n    {\n      \"permissionName\": \"circulation.requests.item.post\",\n      \"displayName\": \"circulation - create individual requests\",\n      \"description\": \"create individual request\"\n    },\n    {\n      \"permissionName\": \"circulation.requests.item.put\",\n      \"displayName\": \"circulation - modify request\",\n      \"description\": \"modify individual request\"\n    },\n    {\n      \"permissionName\": \"circulation.requests.item.delete\",\n      \"displayName\": \"circulation - delete individual request\",\n      \"description\": \"delete individual request\"\n    },\n    {\n      \"permissionName\": \"circulation.all\",\n      \"displayName\": \"circulation - all permissions\",\n      \"description\": \"Entire set of permissions needed to use the circulation\",\n      \"subPermissions\": [\n        \"circulation.check-out-by-barcode.post\",\n        \"circulation.loans.collection.get\",\n        \"circulation.loans.item.get\",\n        \"circulation.loans.item.post\",\n        \"circulation.loans.item.put\",\n        \"circulation.loans.item.delete\",\n        \"circulation.loans.collection.delete\",\n        \"circulation.loan-rules.put\",\n        \"circulation.loan-rules.get\",\n        \"circulation.loan-rules.apply.get\",\n        \"circulation.loan-rules.apply-all.get\",\n        \"circulation.requests.collection.get\",\n        \"circulation.requests.item.get\",\n        \"circulation.requests.item.post\",\n        \"circulation.requests.item.put\",\n        \"circulation.requests.item.delete\",\n        \"circulation.requests.collection.delete\"\n      ]\n    }\n  ],\n  \"launchDescriptor\": {\n    \"dockerImage\": \"mod-circulation:10.3.0-SNAPSHOT\",\n    \"dockerArgs\": {\n      \"HostConfig\": { \"PortBindings\": { \"9801/tcp\":  [{ \"HostPort\": \"%p\" }] } }\n    },\n    \"dockerPull\" : false\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deploy mod-circulation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8c67a8bb-0f05-45e3-a078-9f3513bbd4b9",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"srvcId\": \"mod-circulation-10.3.0-SNAPSHOT\",\n  \"nodeId\": \"localhost\",\n  \"descriptor\": {\n    \"exec\": \"java -Dport=%p -jar ../mod-circulation/target/mod-circulation.jar\"\n  }\n}\n"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/discovery/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"discovery",
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enable mod-circulation for Tenant-bl",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bc159605-2824-4e3d-809b-efe625339c3b",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\" : \"mod-circulation-10.3.0-SNAPSHOT\"\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9130",
+											"path": [
+												"_",
+												"proxy",
+												"tenants",
+												"devlib",
+												"modules"
+											]
+										}
 									},
 									"response": []
 								}
@@ -228,29 +1236,110 @@
 				{
 					"name": "List Modules",
 					"request": {
-						"url": "http://localhost:9130/_/proxy/modules",
 						"method": "GET",
 						"header": [],
 						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:9130/_/proxy/modules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9130",
+							"path": [
+								"_",
+								"proxy",
+								"modules"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "List Tenants",
 					"request": {
-						"url": "http://localhost:9130/_/proxy/tenants",
 						"method": "GET",
 						"header": [],
 						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://localhost:9130/_/proxy/tenants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9130",
+							"path": [
+								"_",
+								"proxy",
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Modules by Tenants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:9130/_/proxy/tenants/devlib/modules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9130",
+							"path": [
+								"_",
+								"proxy",
+								"tenants",
+								"devlib",
+								"modules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Launch Descriptors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:9130/_/proxy/modules/mod-circulation-storage-5.0.2-SNAPSHOT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9130",
+							"path": [
+								"_",
+								"proxy",
+								"modules",
+								"mod-circulation-storage-5.0.2-SNAPSHOT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Slip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Destroy",
+			"name": "Cleanup",
 			"description": "",
 			"item": [
 				{
@@ -262,6 +1351,78 @@
 							"description": "",
 							"item": [],
 							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Modules",
+			"description": "",
+			"item": [
+				{
+					"name": "mod-circulation-storage",
+					"description": "",
+					"item": [
+						{
+							"name": "Read Slips",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Okapi-Tenant",
+										"value": "devlib"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "http://localhost:9130/staff-slips-storage/staff-slips",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9130",
+									"path": [
+										"staff-slips-storage",
+										"staff-slips"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Slip",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Okapi-Tenant",
+										"value": "devlib"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Test Slip\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:9130/staff-slips-storage/staff-slips",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9130",
+									"path": [
+										"staff-slips-storage",
+										"staff-slips"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
